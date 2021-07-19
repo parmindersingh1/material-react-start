@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MainLayout = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleDrawerOpen = () => {

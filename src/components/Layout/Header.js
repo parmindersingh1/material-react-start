@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import Config from "../../Config";
 import MenuIcon from "@material-ui/icons/Menu";
 import React from "react";
 
@@ -91,9 +92,9 @@ const Header = ({
           />
         </IconButton>
         <Typography variant="h6" noWrap className={classes.grow}>
-          Mini variant drawer
+          {Config.appName}
         </Typography>
-        {/* <div>
+        <div>
           <IconButton
             aria-owns={open ? "menu-appbar" : undefined}
             aria-haspopup="true"
@@ -105,22 +106,23 @@ const Header = ({
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(open)}
+            // anchorOrigin={{
+            //   vertical: "top",
+            //   horizontal: "right",
+            // }}
+            // transformOrigin={{
+            //   vertical: "top",
+            //   horizontal: "right",
+            // }}
+            open={Boolean(anchorEl)}
             onClose={handleClose}
+            keepMounted
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
           </Menu>
         </div>
-       */}
+      
       </Toolbar>
     </AppBar>
   );
