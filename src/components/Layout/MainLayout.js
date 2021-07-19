@@ -26,6 +26,12 @@ const PageReports = () => (
   </Typography>
 );
 
+const LevelPage = () => (
+  <Typography variant="h3" component="h1">
+    Level Page
+  </Typography>
+);
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -92,6 +98,7 @@ const MainLayout = () => {
               <Route path="/orders" component={PageOrders} />
               <Route path="/customers" component={PageCustomers} />
               <Route path="/reports" component={PageReports} />
+              <Route path="/level" component={LevelPage} />
             </Switch>
           </Container>
         </main>

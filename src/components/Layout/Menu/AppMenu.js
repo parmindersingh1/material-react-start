@@ -36,6 +36,7 @@ const appMenuItems = [
     items: [
       {
         name: "Level 2",
+        link: "/level",
       },
       {
         name: "Level 2",
