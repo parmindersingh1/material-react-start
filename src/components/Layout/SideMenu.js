@@ -1,22 +1,16 @@
-import {
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@material-ui/core";
+import { Divider, Drawer, IconButton } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
+import AppMenu from "./Menu/AppMenu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import React from "react";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
+  appMenu: {
+    width: "100%",
+  },
   drawer: {
     width: theme.custom.drawerWidth,
     flexShrink: 0,
@@ -78,27 +72,9 @@ const SideMenu = ({ open, handleDrawerClose, ...props }) => {
         </IconButton>
       </div>
       <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+
+      {/* https://codesandbox.io/s/intelligent-almeida-hhlu4?file=/src/AppMenuItemComponent.tsx:0-1044 */}
+      <AppMenu />
     </Drawer>
   );
 };

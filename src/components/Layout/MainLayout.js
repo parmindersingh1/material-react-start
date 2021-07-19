@@ -1,8 +1,30 @@
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Container, Typography, makeStyles } from "@material-ui/core";
 import React, { useState } from "react";
-import { Typography, makeStyles } from "@material-ui/core";
 
 import Header from "./Header";
 import SideMenu from "./SideMenu";
+
+const PageDashboard = () => (
+  <Typography variant="h3" component="h1">
+    Dashboard Page
+  </Typography>
+);
+const PageOrders = () => (
+  <Typography variant="h3" component="h1">
+    Orders Page
+  </Typography>
+);
+const PageCustomers = () => (
+  <Typography variant="h3" component="h1">
+    Customers Page
+  </Typography>
+);
+const PageReports = () => (
+  <Typography variant="h3" component="h1">
+    Reports Page
+  </Typography>
+);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  container: {
+    // paddingTop: theme.spacing(4),
+    // paddingBottom: theme.spacing(4),
+  },
 }));
 
 const MainLayout = () => {
@@ -28,7 +54,7 @@ const MainLayout = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleDrawerOpen = () => {
-    setOpen(openState => !openState);
+    setOpen((openState) => !openState);
   };
 
   const handleDrawerClose = () => {
@@ -44,37 +70,32 @@ const MainLayout = () => {
   };
   return (
     <div className={classes.root}>
-      <Header
-        open={open}
-        anchorEl={anchorEl}
-        handleMenu={handleMenu}
-        handleClose={handleClose}
-        handleDrawerOpen={handleDrawerOpen}
-      />
-      <SideMenu
-        open={open}
-        handleDrawerOpen={handleDrawerOpen}
-        handleDrawerClose={handleDrawerClose}
-      />
+      <BrowserRouter>
+        <Header
+          open={open}
+          anchorEl={anchorEl}
+          handleMenu={handleMenu}
+          handleClose={handleClose}
+          handleDrawerOpen={handleDrawerOpen}
+        />
+        <SideMenu
+          open={open}
+          handleDrawerOpen={handleDrawerOpen}
+          handleDrawerClose={handleDrawerClose}
+        />
 
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-      </main>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Switch>
+              <Route path="/" exact component={PageDashboard} />
+              <Route path="/orders" component={PageOrders} />
+              <Route path="/customers" component={PageCustomers} />
+              <Route path="/reports" component={PageReports} />
+            </Switch>
+          </Container>
+        </main>
+      </BrowserRouter>
     </div>
   );
 };
