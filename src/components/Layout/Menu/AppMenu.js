@@ -1,6 +1,7 @@
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 import AppMenuItem from "./AppMenuItem";
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import IconBarChart from "@material-ui/icons/BarChart";
 import IconDashboard from "@material-ui/icons/Dashboard";
 import IconLibraryBooks from "@material-ui/icons/LibraryBooks";
@@ -37,6 +38,7 @@ const appMenuItems = [
       {
         name: "Level 2",
         link: "/level",
+        Icon: ArrowRightIcon
       },
       {
         name: "Level 2",

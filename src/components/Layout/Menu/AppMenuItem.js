@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 
 import AppMenuItemComponent from "./AppMenuItemComponent";
@@ -9,21 +10,8 @@ import List from "@material-ui/core/List";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import PropTypes from "prop-types";
-import React from "react";
 
 // import { SvgIconProps } from '@material-ui/core/SvgIcon'
-
-
-
-
-
-
-
-
-
-
-
-
 
 // React runtime PropTypes
 export const AppMenuItemPropTypes = {
@@ -34,7 +22,7 @@ export const AppMenuItemPropTypes = {
 };
 
 const AppMenuItem = (props) => {
-  const { name, link, Icon, items = [] } = props;
+  const { name, link, Icon, size = "medium", items = [] } = props;
   const classes = useStyles();
   const isExpandable = items && items.length > 0;
   const [open, setOpen] = React.useState(false);
@@ -42,6 +30,13 @@ const AppMenuItem = (props) => {
   function handleClick() {
     setOpen(!open);
   }
+  useEffect(() => {
+    if (items.find((item) => item.link === window.location.pathname)) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [items]);
 
   const MenuItemRoot = (
     <AppMenuItemComponent
@@ -52,7 +47,7 @@ const AppMenuItem = (props) => {
       {/* Display an icon if any */}
       {!!Icon && (
         <ListItemIcon className={classes.menuItemIcon}>
-          <Icon />
+          <Icon fontSize={size} />
         </ListItemIcon>
       )}
       <ListItemText primary={name} inset={!Icon} />
@@ -67,7 +62,7 @@ const AppMenuItem = (props) => {
       <Divider />
       <List component="div" disablePadding>
         {items.map((item, index) => (
-          <AppMenuItem {...item} key={index} />
+          <AppMenuItem {...item} key={index} size="small" />
         ))}
       </List>
     </Collapse>

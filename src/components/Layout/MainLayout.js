@@ -1,5 +1,5 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Container, Typography, makeStyles } from "@material-ui/core";
+import {  Route, Switch } from "react-router-dom";
+import { Container, Paper, Typography, makeStyles } from "@material-ui/core";
 import React, { useState } from "react";
 
 import Header from "./Header";
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     // paddingTop: theme.spacing(4),
     // paddingBottom: theme.spacing(4),
+    backgroundColor: "#FFF"
   },
 }));
 
@@ -76,7 +77,6 @@ const MainLayout = () => {
   };
   return (
     <div className={classes.root}>
-      <BrowserRouter>
         <Header
           open={open}
           anchorEl={anchorEl}
@@ -92,17 +92,16 @@ const MainLayout = () => {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Container maxWidth="lg" className={classes.container}>
-            <Switch>
-              <Route path="/" exact component={PageDashboard} />
-              <Route path="/orders" component={PageOrders} />
-              <Route path="/customers" component={PageCustomers} />
-              <Route path="/reports" component={PageReports} />
-              <Route path="/level" component={LevelPage} />
-            </Switch>
-          </Container>
+            <Container maxWidth="lg" className={classes.container}>
+              <Switch>
+                <Route path="/" exact component={PageDashboard} />
+                <Route path="/orders" component={PageOrders} />
+                <Route path="/customers" component={PageCustomers} />
+                <Route path="/reports" component={PageReports} />
+                <Route path="/level" component={LevelPage} />
+              </Switch>
+            </Container>
         </main>
-      </BrowserRouter>
     </div>
   );
 };
