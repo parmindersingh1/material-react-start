@@ -1,9 +1,10 @@
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 
-import MainLayout from "./components/Layout/MainLayout";
-import React from "react";
-import theme from "./theme/index";
+import AdminLayout from "./components/Layout/AdminLayout";
 import { BrowserRouter } from "react-router-dom";
+import React from "react";
+import Routes from "./routes/Routes";
+import theme from "./theme/index";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <CssBaseline />
-          <MainLayout />
+          <Routes />
         </div>
       </BrowserRouter>
     </ThemeProvider>

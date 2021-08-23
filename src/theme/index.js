@@ -17,7 +17,10 @@ const theme = createTheme({
     text: {
       primary: '#172b4d',
       secondary: '#6b778c'
-    }
+    },
+    common: {
+      danger: "#FF0000"
+    }, 
   },
   shadows,
   typography,

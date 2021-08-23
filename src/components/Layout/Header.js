@@ -1,16 +1,18 @@
 import {
   AppBar,
+  Box,
+  Hidden,
   IconButton,
-  Menu,
-  MenuItem,
   Toolbar,
   Typography,
   makeStyles,
 } from "@material-ui/core";
 
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import Config from "../../Config";
 import MenuIcon from "@material-ui/icons/Menu";
+import Messages from "./NavTab/Messages";
+import Notification from "./NavTab/Notification";
+import Profile from "./NavTab/Profile";
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +32,10 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   menuButton: {
-    marginRight: 36,
+    marginRight: "inherit",
+    [theme.breakpoints.up("md")]: {
+      marginRight: 36,
+    },
   },
   menuButtonIconClosed: {
     transition: theme.transitions.create(["transform"], {
@@ -57,10 +62,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({
   open,
+  mobileOpen,
   anchorEl,
   handleDrawerOpen,
   handleMenu,
   handleClose,
+  handleMobileDrawerToggle,
   ...props
 }) => {
   const classes = useStyles();
@@ -73,56 +80,49 @@ const Header = ({
       // })}
     >
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          className={classes.menuButton}
-          // className={clsx(classes.menuButton, {
-          //   [classes.hide]: open,
-          // })}
-        >
-          <MenuIcon
-            classes={{
-              root: open
-                ? classes.menuButtonIconOpen
-                : classes.menuButtonIconClosed,
-            }}
-          />
-        </IconButton>
+        <Hidden smDown>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={classes.menuButton}
+            // className={clsx(classes.menuButton, {
+            //   [classes.hide]: open,
+            // })}
+          >
+            <MenuIcon
+              classes={{
+                root: open
+                  ? classes.menuButtonIconOpen
+                  : classes.menuButtonIconClosed,
+              }}
+            />
+          </IconButton>
+        </Hidden>
+
         <Typography variant="h6" noWrap className={classes.grow}>
           {Config.appName}
         </Typography>
-        <div>
+
+        <Hidden smDown>
+          <Box>
+            <Messages />
+            <Notification />
+            <Profile />
+          </Box>
+        </Hidden>
+
+        <Hidden mdUp>
           <IconButton
-            aria-owns={open ? "menu-appbar" : undefined}
-            aria-haspopup="true"
-            onClick={handleMenu}
             color="inherit"
+            onClick={handleMobileDrawerToggle}
+            aria-label="open drawer"
+            className={classes.menuButton}
           >
-            <AccountCircle />
+            <MenuIcon />
           </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            // anchorOrigin={{
-            //   vertical: "top",
-            //   horizontal: "right",
-            // }}
-            // transformOrigin={{
-            //   vertical: "top",
-            //   horizontal: "right",
-            // }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            keepMounted
-          >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-          </Menu>
-        </div>
-      
+        </Hidden>
       </Toolbar>
     </AppBar>
   );

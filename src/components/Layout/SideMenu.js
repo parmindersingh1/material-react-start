@@ -1,10 +1,10 @@
-import { Divider, Drawer, IconButton } from "@material-ui/core";
+import { Divider, Drawer, Hidden, IconButton, Paper } from "@material-ui/core";
+import React, { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import AppMenu from "./Menu/AppMenu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import React from "react";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,40 +42,74 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
+  // drawer: {
+  //   [theme.breakpoints.up('sm')]: {
+  //     width: theme.custom.drawerWidth,
+  //     flexShrink: 0,
+  //   },
+  // },
+  drawerPaper: {
+    width: theme.custom.drawerWidth,
+  },
 }));
 
-const SideMenu = ({ open, handleDrawerClose, ...props }) => {
+const SideMenu = ({ open, mobileOpen, handleMobileDrawerToggle, handleDrawerClose, ...props }) => {
+  const { window } = props;
   const classes = useStyles();
-  const theme = useTheme();
+  const theme = useTheme();  
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Drawer
-      variant="permanent"
-      className={clsx(classes.drawer, {
-        [classes.drawerOpen]: open,
-        [classes.drawerClose]: !open,
-      })}
-      classes={{
-        paper: clsx({
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        }),
-      }}
-    >
-      <div className={classes.toolbar}>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === "rtl" ? (
-            <ChevronRightIcon />
-          ) : (
-            <ChevronLeftIcon />
-          )}
-        </IconButton>
-      </div>
-      <Divider />
+    <>
+      <Hidden mdUp implementation="css">
+        <Drawer
+          container={container}
+          variant="temporary"
+          anchor={theme.direction === "rtl" ? "right" : "left"}
+          open={mobileOpen}
+          onClose={handleMobileDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          <AppMenu />
+        </Drawer>
+      </Hidden>
+      <Hidden smDown implementation="css">
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
 
-      {/* https://codesandbox.io/s/intelligent-almeida-hhlu4?file=/src/AppMenuItemComponent.tsx:0-1044 */}
-      <AppMenu />
-    </Drawer>
+          {/* https://codesandbox.io/s/intelligent-almeida-hhlu4?file=/src/AppMenuItemComponent.tsx:0-1044 */}
+          <AppMenu />
+        </Drawer>
+      </Hidden>
+    </>
   );
 };
 
