@@ -4,7 +4,7 @@ import ListItem from "@material-ui/core/ListItem";
 import { NavLink } from "react-router-dom";
 
 const AppMenuItemComponent = (props) => {
-  const { className, onClick, link, children } = props;
+  const { className, onClick, link, children, handleCloseMobileMenu } = props;
 
   // If link is not set return the orinary ListItem
   if (!link || typeof link !== "string") {
@@ -28,6 +28,7 @@ const AppMenuItemComponent = (props) => {
         <NavLink exact {...props} innerRef={ref} />
       ))}
       to={link}
+      onClick={handleCloseMobileMenu}
     />
   );
 };

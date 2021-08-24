@@ -5,14 +5,14 @@ import List from "@material-ui/core/List";
 import React from "react";
 import appMenuItems from "../../../routes/appMenuItems";
 
-const AppMenu = () => {
+const AppMenu = ({ handleMobileDrawerToggle, isMobile = false }) => {
   const classes = useStyles();
 
   return (
     <List component="nav" className={classes.appMenu} disablePadding>
       {/* <AppMenuItem {...appMenuItems[0]} /> */}
       {appMenuItems.map((item, index) => (
-        <AppMenuItem {...item} key={index} />
+        <AppMenuItem {...item} key={index} handleMobileDrawerToggle={handleMobileDrawerToggle} isMobile={isMobile} />
       ))}
     </List>
   );

@@ -29,7 +29,18 @@ const AppMenuItem = (props) => {
 
   function handleClick() {
     setOpen(!open);
+    // if (props.isMobile && props.handleMobileDrawerToggle) {
+    //   props.handleMobileDrawerToggle();
+    // }
   }
+
+  function handleCloseMobileMenu() {
+    console.log("Link CLiked", props.isMobile)
+    if (props.isMobile && props.handleMobileDrawerToggle) {
+      props.handleMobileDrawerToggle();
+    }
+  }
+
   useEffect(() => {
     if (items.find((item) => item.link === window.location.pathname)) {
       setOpen(true);
@@ -43,6 +54,7 @@ const AppMenuItem = (props) => {
       className={classes.menuItem}
       link={link}
       onClick={handleClick}
+      handleCloseMobileMenu={handleCloseMobileMenu}
     >
       {/* Display an icon if any */}
       {!!Icon && (
@@ -62,7 +74,13 @@ const AppMenuItem = (props) => {
       <Divider />
       <List component="div" disablePadding>
         {items.map((item, index) => (
-          <AppMenuItem {...item} key={index} size="small" />
+          <AppMenuItem
+            {...item}
+            key={index}
+            size="small"
+            handleMobileDrawerToggle={props.handleMobileDrawerToggle}
+            isMobile={props.isMobile}
+          />
         ))}
       </List>
     </Collapse>

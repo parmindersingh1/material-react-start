@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   // },
   drawerPaper: {
     width: theme.custom.drawerWidth,
+    paddingTop: theme.spacing(2)
   },
 }));
 
@@ -77,7 +78,7 @@ const SideMenu = ({ open, mobileOpen, handleMobileDrawerToggle, handleDrawerClos
             keepMounted: true, // Better open performance on mobile.
           }}
         >
-          <AppMenu />
+          <AppMenu handleMobileDrawerToggle={handleMobileDrawerToggle} isMobile={true} />
         </Drawer>
       </Hidden>
       <Hidden smDown implementation="css">
